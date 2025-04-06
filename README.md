@@ -48,18 +48,18 @@
 ## 예상 게임 실행 흐름
 
 
-![poster](./1.jpq)
+![poster](./1.jpg)
 
 메인 메뉴, high score를 볼 수 있고 게임을 시작 할 수 있다.
 
 
 
-![poster](./2.jpq)
+![poster](./2.jpg)
 
 게임 화면, 게임 오버 될 때 까지 게임을 플레이하고, 게임이 오버되면 high score 화면으로 넘어간다.
 
  
-![poster](./3.jpq)
+![poster](./3.jpg)
 
 high score 화면, 고득점을 확인하고 게임을 다시 시작 할 수 있다.
 
