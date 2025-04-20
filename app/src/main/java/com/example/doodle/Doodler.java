@@ -3,37 +3,36 @@ package com.example.doodle;
 import android.graphics.Canvas;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
-import com.example.doodle.R;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class Doodler extends Sprite {
 
-    private static final float PLANE_WIDTH = 175f;
-    private static final float PLANE_HEIGHT = PLANE_WIDTH * 80 / 72;
+    private static final float GRAVITY = 180f;
+    private boolean isFalling= false;
 
-    private static final float speed = 300f;
+    private float speed = 500f;
+    private static final float PLANE_WIDTH = 175f;
+    private static final float PLANE_HEIGHT = PLANE_WIDTH * 185 / 227;
+
 
     public Doodler(){
 
         super(R.mipmap.doodler);
         setPosition(Metrics.width/2,Metrics.height-200,PLANE_WIDTH, PLANE_HEIGHT);
-
-
-    }
-
-    public void update(){
+        dy = -speed;
 
     }
 
-    public void draw(Canvas canvas){
+    @Override
+    public void update() {
+        super.update();
 
-        super.draw(canvas);
+        dy +=GRAVITY*GameView.frameTime;
 
+        if(y>Metrics.height){
+            dy = -speed;
+        }
 
 
 
