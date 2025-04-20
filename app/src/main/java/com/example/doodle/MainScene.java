@@ -8,23 +8,33 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Random;
+
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class MainScene extends Scene {
 
+
+    Random randG = new Random();
     private final Doodler doodler;
+    private final Camera camera;
 
     public MainScene(){
+
+        for (int i = 0; i<20; i++){
+
+            add(new Platform(randG.nextFloat() * Metrics.width, 100f * i));
+        }
 
         this.doodler= new Doodler();
         add(doodler);
 
-        for (int i = 0; i<20; i++){
+        this.camera = new Camera(doodler);
+        add(camera);
 
-            add(new Platform(Metrics.width/2, 100f * i));
-        }
+
 
     }
 }

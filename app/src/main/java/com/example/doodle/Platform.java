@@ -1,5 +1,6 @@
 package com.example.doodle;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -20,5 +21,13 @@ public class Platform extends Sprite {
 
         setPosition(rand_x,rand_y,PLATFORM_WIDTH, PLATFORM_HEIGHT);
 
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+
+        super.setDstRectWithCamera(Camera.getCameraY(y));
+        super.draw(canvas);
+        super.revertDstRect();
     }
 }

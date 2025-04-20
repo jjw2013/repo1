@@ -19,22 +19,38 @@ public class Doodler extends Sprite {
     public Doodler(){
 
         super(R.mipmap.doodler);
-        setPosition(Metrics.width/2,Metrics.height-200,PLANE_WIDTH, PLANE_HEIGHT);
-        dy = -speed;
+        setPosition(Metrics.width/2,Metrics.height/2,PLANE_WIDTH, PLANE_HEIGHT);
+        dy = speed;
 
+    }
+
+    public float getX(){
+        return x;
+    }
+
+    public float getY(){
+        return y;
     }
 
     @Override
     public void update() {
         super.update();
 
-        dy +=GRAVITY*GameView.frameTime;
 
-        if(y>Metrics.height){
-            dy = -speed;
+        dy -= GRAVITY * GameView.frameTime;
+
+        if ( y <0){
+            dy = speed;
         }
 
 
 
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.setDstRectWithCamera(Camera.getCameraY(y));
+        super.draw(canvas);
+        super.revertDstRect();
     }
 }

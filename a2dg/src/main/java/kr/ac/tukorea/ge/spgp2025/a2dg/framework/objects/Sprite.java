@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
@@ -9,6 +10,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class Sprite implements IGameObject {
     protected Bitmap bitmap;
@@ -27,7 +29,7 @@ public class Sprite implements IGameObject {
         this.x = x;
         this.y = y;
         this.width = this.height = 2 * radius;
-        RectUtil.setRect(dstRect, x, y, radius);
+        RectUtil.setRect(dstRect, x,Metrics.height-y, radius);
 
     }
     public void setPosition(float x, float y, float width, float height) {
@@ -36,15 +38,24 @@ public class Sprite implements IGameObject {
         this.width = width;
         this.height = height;
         radius = Math.min(width, height) / 2;
-        RectUtil.setRect(dstRect, x, y, width, height);
+        RectUtil.setRect(dstRect, x, Metrics.height-y, width, height);
     }
+
+    public void setDstRectWithCamera(float camera_y){
+        RectUtil.setRect(dstRect, x, Metrics.height-camera_y, width, height);
+    }
+
+    public void revertDstRect(){
+        RectUtil.setRect(dstRect, x, Metrics.height-y, width, height);
+    }
+
     @Override
     public void update() {
         float timedDx = dx * GameView.frameTime;
         float timedDy = dy * GameView.frameTime;
         x += timedDx;
         y += timedDy;
-        dstRect.offset(timedDx, timedDy);
+        dstRect.offset(timedDx, -timedDy);
     }
 
     @Override
