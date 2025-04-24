@@ -12,6 +12,7 @@ import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.CollisionHelper;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class MainScene extends Scene {
@@ -23,7 +24,7 @@ public class MainScene extends Scene {
 
     public MainScene(){
 
-        for (int i = 0; i<20; i++){
+        for (int i = 0; i<40; i++) {
 
             add(new Platform(randG.nextFloat() * Metrics.width, 100f * i));
         }
@@ -35,6 +36,27 @@ public class MainScene extends Scene {
         add(camera);
 
 
+
+
+
+
+    }
+
+    // Game Loop Functions
+    @Override
+    public void update() {
+        super.update();
+        checkCollision();
+    }
+
+    private void checkCollision() {
+
+
+        int count = gameObjects.size();
+        for(int i=count-1; i>=0 ; i--){
+            count = gameObjects.size();
+            if(CollisionHelper.collides())
+        }
 
     }
 }
