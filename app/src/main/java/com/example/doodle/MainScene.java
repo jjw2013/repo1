@@ -52,10 +52,25 @@ public class MainScene extends Scene {
     private void checkCollision() {
 
 
-        int count = gameObjects.size();
-        for(int i=count-1; i>=0 ; i--){
-            count = gameObjects.size();
-            if(CollisionHelper.collides())
+        if(doodler.isFalling()) {
+
+            int count = gameObjects.size();
+            for (int i = count - 1; i >= 0; i--) {
+                //count = gameObjects.size();
+
+                IGameObject obj = gameObjects.get(i);
+                if (obj instanceof Platform) {
+
+                    if (CollisionHelper.collides(doodler.getCollisionRect(),
+                            ((Platform) obj).getCollisionRect())) {
+
+                        doodler.stomped();
+
+                    }
+
+                }
+            }
+
         }
 
     }

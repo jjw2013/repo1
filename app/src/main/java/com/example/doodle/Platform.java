@@ -1,6 +1,7 @@
 package com.example.doodle;
 
 import android.graphics.Canvas;
+import android.graphics.RectF;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -9,13 +10,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 
-public class Platform extends Sprite {
+public class Platform extends Sprite implements IBoxCollidable {
 
     private static final float PLATFORM_WIDTH = 175f;
     private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 23 / 105;
 
+    protected RectF collisionRect = new RectF();
     public Platform(float rand_x, float rand_y){
         super(R.mipmap.platform);
 
@@ -29,5 +32,16 @@ public class Platform extends Sprite {
         super.setDstRectWithCamera(Camera.getCameraY(y));
         super.draw(canvas);
         super.revertDstRect();
+        updateCollisionRect();
+    }
+
+
+    @Override
+    public RectF getCollisionRect() {
+        return collisionRect;
+    }
+
+    public void updateCollisionRect(){
+        collisionRect.set(dstRect);
     }
 }

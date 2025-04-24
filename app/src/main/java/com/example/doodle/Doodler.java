@@ -11,12 +11,14 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class Doodler extends Sprite implements IBoxCollidable {
 
-    private static final float GRAVITY = 180f;
-    private boolean isFalling= false;
+    private static final float GRAVITY = 500f;
+    private boolean isFalling= true;
+
+    private boolean stomp = false;
 
     protected RectF collisionRect= new RectF();
 
-    private float speed = 500f;
+    private float speed = 1000f;
     private static final float PLANE_WIDTH = 175f;
     private static final float PLANE_HEIGHT = PLANE_WIDTH * 185 / 227;
 
@@ -31,6 +33,10 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
     }
 
+    public boolean isFalling(){
+        return isFalling;
+    }
+
     public float getX(){
         return x;
     }
@@ -39,20 +45,34 @@ public class Doodler extends Sprite implements IBoxCollidable {
         return y;
     }
 
+    public void stomped(){
+        stomp= true;
+    }
+
+    public void addJumpSpeed(){
+        isFalling= false;
+        stomp= false;
+
+        dy = speed;
+
+    }
+
     @Override
     public void update() {
         super.update();
 
 
-        dy -= GRAVITY * GameView.frameTime;
+        if(stomp)
+            addJumpSpeed();
 
-        if(!isFalling && dy<=0) isFalling= true;
-
-        if(isFalling && dy>0) isFalling= false;
-
-        if ( y <0){
-            dy = speed;
+        if(!isFalling && dy < 0) {
+            isFalling = true;
         }
+
+        if ( y < 0 )
+            stomped();
+
+        dy -= GRAVITY * GameView.frameTime;
 
 
 
