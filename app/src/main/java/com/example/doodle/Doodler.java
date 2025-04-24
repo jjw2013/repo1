@@ -2,10 +2,10 @@ package com.example.doodle;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
+import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
@@ -18,18 +18,18 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
     protected RectF collisionRect= new RectF();
 
-    private float speed = 1000f;
+    private float jumpSpeed = 1000f;
     private static final float PLANE_WIDTH = 175f;
     private static final float PLANE_HEIGHT = PLANE_WIDTH * 185 / 227;
 
-
+    public float targetX;
 
 
     public Doodler(){
 
         super(R.mipmap.doodler);
         setPosition(Metrics.width/2,Metrics.height/2,PLANE_WIDTH, PLANE_HEIGHT);
-        dy = speed;
+        dy = jumpSpeed;
 
     }
 
@@ -53,7 +53,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
         isFalling= false;
         stomp= false;
 
-        dy = speed;
+        dy = jumpSpeed;
 
     }
 
@@ -75,6 +75,27 @@ public class Doodler extends Sprite implements IBoxCollidable {
         dy -= GRAVITY * GameView.frameTime;
 
 
+
+    }
+
+
+    private void setTargetX(float x) {
+        //targetX = Math.max(radius, Math.min(x, Metrics.width - radius));
+        targetX = x;
+        setPosition(x,y,PLANE_WIDTH, PLANE_HEIGHT);
+    }
+
+    public boolean onTouch(MotionEvent event){
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_UP:
+                float[] pts = Metrics.fromScreen(event.getX(), event.getY());
+                setTargetX(pts[0]);
+                return true;
+
+        }
+        return false;
 
     }
 

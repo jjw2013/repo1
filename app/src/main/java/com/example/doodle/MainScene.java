@@ -1,6 +1,7 @@
 package com.example.doodle;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,26 +53,33 @@ public class MainScene extends Scene {
     private void checkCollision() {
 
 
-        if(doodler.isFalling()) {
+        if (doodler.isFalling()) {
 
             int count = gameObjects.size();
             for (int i = count - 1; i >= 0; i--) {
                 //count = gameObjects.size();
 
                 IGameObject obj = gameObjects.get(i);
-                if (obj instanceof Platform) {
+                if (!(obj instanceof Platform))
+                    continue;
 
-                    if (CollisionHelper.collides(doodler.getCollisionRect(),
-                            ((Platform) obj).getCollisionRect())) {
-
-                        doodler.stomped();
-
-                    }
+                if (CollisionHelper.collides(doodler.getCollisionRect(),
+                        ((Platform) obj).getCollisionRect())) {
+                    doodler.stomped();
 
                 }
             }
 
+
         }
 
+
+
+    }
+
+    // Overridables
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return doodler.onTouch(event);
     }
 }
