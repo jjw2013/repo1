@@ -2,6 +2,7 @@ package com.example.doodle;
 
 import android.view.MotionEvent;
 
+import Platforms.PlatformGenerator;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 
 public class MainScene extends Scene {

@@ -1,4 +1,4 @@
-package com.example.doodle;
+package Platforms;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
@@ -10,33 +10,27 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.doodle.Camera;
+import com.example.doodle.MainScene;
+import com.example.doodle.R;
+
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.ILayerProvider;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
-public class Platform extends Sprite implements IBoxCollidable , IRecyclable, ILayerProvider {
-
-    private static final float PLATFORM_WIDTH = 175f;
-    private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 23 / 105;
+public abstract class Platform extends Sprite implements IBoxCollidable, ILayerProvider, IRecyclable {
 
     protected RectF collisionRect = new RectF();
 
-    public static Platform get(float x, float y) {
-        return Scene.top().getRecyclable(Platform.class).init(x, y);
+    public Platform(int mipmapId) {
+        super(mipmapId);
     }
 
-    private Platform init(float x, float y) {
-        setPosition(x, y,PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        return this;
-    }
-
-
-    public Platform() {
-        super(R.mipmap.platform);
-    }
+    public abstract Platform init(float x , float y);
 
     @Override
     public void update() {
@@ -82,4 +76,6 @@ public class Platform extends Sprite implements IBoxCollidable , IRecyclable, IL
     public void onRecycle() {
 
     }
+
+
 }

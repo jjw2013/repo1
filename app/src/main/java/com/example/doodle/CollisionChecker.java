@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
+import Platforms.NormalPlatform;
+import Platforms.Platform;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.CollisionHelper;
 
@@ -20,14 +22,17 @@ public class CollisionChecker implements IGameObject {
 
     @Override
     public void update() {
-        ArrayList<IGameObject> platforms = scene.objectsAt(MainScene.Layer.platform);
-        for (int e = platforms.size() - 1; e >= 0; e--) {
-            Platform platform = (Platform) platforms.get(e);
 
-            if(CollisionHelper.collides(doodler, platform)){
+
+
+        ArrayList<IGameObject> platforms = scene.objectsAt(MainScene.Layer.platform);
+
+        for (int e = platforms.size() - 1; e >= 0; e--) {
+            Platform platform = (Platform) platforms.get(e);  // 바로 Platform으로 캐스팅 가능
+
+            if (CollisionHelper.collides(doodler, platform)) {
                 doodler.stomped();
             }
-
         }
     }
 

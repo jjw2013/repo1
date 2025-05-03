@@ -15,7 +15,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class Doodler extends Sprite implements IBoxCollidable {
 
-    private static final float GRAVITY = 500f;
+    private static final float GRAVITY = 800f;
     private boolean isFalling= true;
 
     private boolean stomp = false;
