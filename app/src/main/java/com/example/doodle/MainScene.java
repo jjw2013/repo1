@@ -19,7 +19,6 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 public class MainScene extends Scene {
 
 
-    Random randG = new Random();
     private final Doodler doodler;
     private final Camera camera;
 
