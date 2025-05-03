@@ -21,7 +21,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private static long previousNanos;
     public static float frameTime;
     public static GameView view;
-    public static boolean drawsDebugStuffs = false;
+    public static boolean drawsDebugStuffs = true;
 
     public interface OnEmptyStackListener {
         public void onEmptyStack();

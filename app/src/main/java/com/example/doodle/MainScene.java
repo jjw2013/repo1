@@ -23,18 +23,25 @@ public class MainScene extends Scene {
     private final Doodler doodler;
     private final Camera camera;
 
+
+    public enum Layer {
+        bg, enemy, bullet, platform ,doodler, ui, controller;
+        public static final int COUNT = values().length;
+    }
+
     public MainScene(){
 
-        for (int i = 0; i<40; i++) {
 
-            add(new Platform(randG.nextFloat() * Metrics.width, 100f * i));
-        }
+        initLayers(Layer.COUNT);
 
         this.doodler= new Doodler();
-        add(doodler);
+        add(Layer.doodler, doodler);
 
         this.camera = new Camera(doodler);
-        add(camera);
+        add(Layer.controller, camera);
+
+        add(Layer.controller, new platformGenerator(this));
+        add(Layer.controller, new CollisionChecker(this, doodler));
 
 
 
@@ -44,38 +51,7 @@ public class MainScene extends Scene {
     }
 
     // Game Loop Functions
-    @Override
-    public void update() {
-        super.update();
-        checkCollision();
-    }
 
-    private void checkCollision() {
-
-
-        if (doodler.isFalling()) {
-
-            int count = gameObjects.size();
-            for (int i = count - 1; i >= 0; i--) {
-                //count = gameObjects.size();
-
-                IGameObject obj = gameObjects.get(i);
-                if (!(obj instanceof Platform))
-                    continue;
-
-                if (CollisionHelper.collides(doodler.getCollisionRect(),
-                        ((Platform) obj).getCollisionRect())) {
-                    doodler.stomped();
-
-                }
-            }
-
-
-        }
-
-
-
-    }
 
     // Overridables
     @Override

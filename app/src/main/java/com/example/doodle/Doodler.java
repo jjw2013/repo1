@@ -1,11 +1,15 @@
 package com.example.doodle;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
@@ -46,7 +50,8 @@ public class Doodler extends Sprite implements IBoxCollidable {
     }
 
     public void stomped(){
-        stomp= true;
+        if(isFalling())
+            stomp= true;
     }
 
     public void addJumpSpeed(){
@@ -101,12 +106,21 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
     @Override
     public void draw(Canvas canvas) {
+
+
         super.setDstRectWithCamera(Camera.getCameraY(y));
         super.draw(canvas);
         super.revertDstRect();
 
+
         updateCollisionRect();
+
+
     }
+
+    protected static Paint bboxPaint;
+
+
 
     @Override
     public RectF getCollisionRect() {
@@ -114,6 +128,15 @@ public class Doodler extends Sprite implements IBoxCollidable {
     }
 
     public void updateCollisionRect(){
-        collisionRect.set(dstRect);
+        collisionRect.set(dstRect.left,
+                dstRect.top,
+                dstRect.right,
+                dstRect.bottom);
+
+        collisionRect.set(
+                collisionRect.left,
+                collisionRect.top +PLANE_HEIGHT*0.9f,
+                collisionRect.right,
+                collisionRect.bottom);
     }
 }

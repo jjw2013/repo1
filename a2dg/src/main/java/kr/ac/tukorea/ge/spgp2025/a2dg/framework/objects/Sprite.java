@@ -2,10 +2,13 @@ package kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
@@ -60,6 +63,11 @@ public class Sprite implements IGameObject {
 
     @Override
     public void draw(Canvas canvas) {
+
         canvas.drawBitmap(bitmap, srcRect, dstRect, null);
     }
+
+    protected static Paint bboxPaint;
 }
+
+
