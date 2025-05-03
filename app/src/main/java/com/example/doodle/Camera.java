@@ -16,19 +16,19 @@ public class Camera implements IGameObject {
 
     private Doodler doodler;
 
-    public static float realWorldX, realWorldY;
+    public static float worldX, worldY;
 
     public Camera(Doodler doodler){
         this.doodler = doodler;
     }
 
     public void update() {
-        realWorldX = doodler.getX();
-        realWorldY = doodler.getY();
+        worldX = doodler.getX();
+        worldY = doodler.getY();
     }
 
     public static float getCameraY(float y){
-        return y + (Metrics.height/2) - realWorldY;
+        return y + (Metrics.height/2) - worldY;
     }
 
     @Override

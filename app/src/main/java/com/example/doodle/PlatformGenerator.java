@@ -1,30 +1,22 @@
 package com.example.doodle;
 
 import android.graphics.Canvas;
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
-public class platformGenerator implements IGameObject {
+public class PlatformGenerator implements IGameObject {
 
 
     private final MainScene scene;
 
     Random randG = new Random();
 
-    public platformGenerator(MainScene mainScene) {
+    public PlatformGenerator(MainScene mainScene) {
         this.scene = mainScene;
-        generate();
+
     }
 
 
@@ -38,16 +30,22 @@ public class platformGenerator implements IGameObject {
             float max = Metrics.width - min;
 
             int x = randG.nextInt((int)(max - min + 1)) + (int)min;
-            scene.add(MainScene.Layer.platform, new Platform(x, 300 * i));
+
+            scene.add(Platform.get(x, 300 * i));
         }
 
 
         //Log.v(TAG, "Generating: wave " + wave + " : " + enemies.toString());
     }
 
+    private boolean generated = false;
+
     @Override
     public void update() {
-
+        if(!generated) {
+            generate();
+            generated=true;
+        }
     }
 
     @Override
