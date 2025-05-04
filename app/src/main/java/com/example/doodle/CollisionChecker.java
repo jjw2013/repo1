@@ -31,7 +31,7 @@ public class CollisionChecker implements IGameObject {
         for (int e = platforms.size() - 1; e >= 0; e--) {
             Platform platform = (Platform) platforms.get(e);  // 바로 Platform으로 캐스팅 가능
 
-            if (CollisionHelper.collides(doodler, platform)) {
+            if (doodler.isFalling() && CollisionHelper.collides(doodler, platform)) {
 
                 if(platform instanceof CloudPlatform)
                     ((CloudPlatform) platform).stompedByDoodler();
