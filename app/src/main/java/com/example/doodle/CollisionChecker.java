@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 
 import Platforms.CloudPlatform;
+import Platforms.FakePlatform;
 import Platforms.NormalPlatform;
 import Platforms.Platform;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
@@ -36,6 +37,11 @@ public class CollisionChecker implements IGameObject {
                 if(platform instanceof CloudPlatform)
                     ((CloudPlatform) platform).stompedByDoodler();
 
+                else if(platform instanceof FakePlatform) {
+                    ((FakePlatform) platform).stompedByDoodler();
+                    continue;
+
+                }
                 doodler.stomped();
             }
         }
