@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
+import Platforms.CloudPlatform;
 import Platforms.NormalPlatform;
 import Platforms.Platform;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
@@ -31,6 +32,10 @@ public class CollisionChecker implements IGameObject {
             Platform platform = (Platform) platforms.get(e);  // 바로 Platform으로 캐스팅 가능
 
             if (CollisionHelper.collides(doodler, platform)) {
+
+                if(platform instanceof CloudPlatform)
+                    ((CloudPlatform) platform).stompedByDoodler();
+
                 doodler.stomped();
             }
         }
