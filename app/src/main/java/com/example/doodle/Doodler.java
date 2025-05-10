@@ -79,6 +79,9 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
         dy -= GRAVITY * GameView.frameTime;
 
+        if( y< Camera.deadline)
+            Camera.unlock_camera_y_with_deadline();
+
 
 
     }
