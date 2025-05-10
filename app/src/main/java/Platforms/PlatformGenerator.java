@@ -33,7 +33,7 @@ public class PlatformGenerator implements IGameObject {
 
             int x = randG.nextInt((int)(max - min + 1)) + (int)min;
 
-            int type = randG.nextInt(4) +1;
+            int type = randG.nextInt(2) +1;
             switch (type){
                 case 1:
                     scene.add(NormalPlatform.get(x, 300 * i));
