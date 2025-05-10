@@ -25,6 +25,9 @@ public class Camera implements IGameObject {
     public void update() {
         worldX = doodler.getX();
         worldY = doodler.getY();
+
+        if(worldY < Metrics.height/2)
+            worldY= Metrics.height/2;
     }
 
     public static float getCameraY(float y){

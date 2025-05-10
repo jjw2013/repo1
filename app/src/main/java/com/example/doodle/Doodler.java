@@ -24,7 +24,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
     private float jumpSpeed = 1000f;
     private static final float PLANE_WIDTH = 175f;
-    private static final float PLANE_HEIGHT = PLANE_WIDTH * 185 / 227;
+    private static final float PLANE_HEIGHT = PLANE_WIDTH * 210 / 251;
 
     public float targetX;
 
