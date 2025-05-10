@@ -15,7 +15,7 @@ public class Background extends Sprite implements ILayerProvider, IGameObject {
 
     public Background(){
         super(R.mipmap.note_background);
-        setPosition(Metrics.width/2,Metrics.height/2,PLANE_WIDTH, PLANE_HEIGHT);
+        setPosition(Metrics.width/2,PLANE_HEIGHT/2,PLANE_WIDTH, PLANE_HEIGHT);
     }
 
     @Override

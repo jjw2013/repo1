@@ -22,6 +22,8 @@ public class MainScene extends Scene {
 
         initLayers(Layer.COUNT);
 
+        add(Layer.bg, new Background());
+
 
 
         this.doodler= new Doodler();
@@ -29,6 +31,8 @@ public class MainScene extends Scene {
 
         this.camera = new Camera(doodler);
         add(Layer.controller, camera);
+
+
 
 
 
