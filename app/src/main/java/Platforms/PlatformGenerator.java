@@ -6,6 +6,7 @@ import com.example.doodle.MainScene;
 
 import java.util.Random;
 
+import Items.Spring;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
@@ -37,10 +38,12 @@ public class PlatformGenerator implements IGameObject {
             switch (type){
                 case 1:
                     scene.add(NormalPlatform.get(x, 300 * i));
+
                     break;
 
                 case 2:
                     scene.add(MovingPlatform.get(x, 300 * i));
+
                     break;
 
                 case 3:

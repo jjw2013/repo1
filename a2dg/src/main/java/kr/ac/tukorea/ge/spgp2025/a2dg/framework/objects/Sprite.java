@@ -18,7 +18,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 public class Sprite implements IGameObject {
     protected Bitmap bitmap;
     protected Rect srcRect = null;
-    protected final RectF dstRect = new RectF();
+    public  RectF dstRect = new RectF();
     protected float x, y, dx, dy;
     protected float width, height, radius;
 
@@ -51,6 +51,12 @@ public class Sprite implements IGameObject {
     public void revertDstRect(){
         RectUtil.setRect(dstRect, x, Metrics.height-y, width, height);
     }
+
+    public void resetDstRectWithRect(RectF rect){
+        dstRect=rect;
+
+    }
+
 
     @Override
     public void update() {

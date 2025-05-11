@@ -11,9 +11,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.doodle.Camera;
+import com.example.doodle.Doodler;
 import com.example.doodle.MainScene;
 import com.example.doodle.R;
 
+import Items.Item;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.ILayerProvider;
@@ -66,6 +68,7 @@ public abstract class Platform extends Sprite implements IBoxCollidable, ILayerP
 
     public void updateCollisionRect(){
         collisionRect.set(dstRect);
+
     }
 
     public MainScene.Layer getLayer() {
