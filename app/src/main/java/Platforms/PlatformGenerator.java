@@ -28,7 +28,7 @@ public class PlatformGenerator implements IGameObject {
 
 
         for (int i=0;i<60;i++){
-            float min = Metrics.width * 0.1f;
+            float min = Metrics.width * 0.13f;
             float max = Metrics.width - min;
 
             int x = randG.nextInt((int)(max - min + 1)) + (int)min;

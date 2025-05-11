@@ -13,7 +13,7 @@ public class MainScene extends Scene {
 
 
     public enum Layer {
-        bg, enemy, bullet, platform,debris ,doodler, ui, controller;
+        bg, enemy, bullet, platform,item, debris ,doodler, ui, controller;
         public static final int COUNT = values().length;
     }
 

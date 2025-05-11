@@ -19,6 +19,8 @@ public class Camera implements IGameObject {
     public static float worldX, worldY;
     public static float deadline;
 
+    private float speed;
+
     public static boolean lock_camera_y_with_deadline = true;
 
     public Camera(Doodler doodler){

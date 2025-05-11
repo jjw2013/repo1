@@ -74,8 +74,8 @@ public class Doodler extends Sprite implements IBoxCollidable {
             isFalling = true;
         }
 
-        if ( y < 0 )
-            stomped();
+        //if ( y < 0 )
+        //    stomped();
 
         dy -= GRAVITY * GameView.frameTime;
 
@@ -141,5 +141,9 @@ public class Doodler extends Sprite implements IBoxCollidable {
                 collisionRect.top +PLANE_HEIGHT*0.9f,
                 collisionRect.right,
                 collisionRect.bottom);
+    }
+
+    public void use_item_spring() {
+
     }
 }
