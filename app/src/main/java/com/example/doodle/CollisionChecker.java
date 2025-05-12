@@ -51,7 +51,7 @@ public class CollisionChecker implements IGameObject {
         for (int e = items.size() - 1; e >= 0; e--) {
             Item item = (Item) items.get(e);
 
-            if(CollisionHelper.collides(doodler, (IBoxCollidable) item)){
+            if(doodler.isFalling() && CollisionHelper.collides(doodler, (IBoxCollidable) item)){
                 item.applyItemTo(doodler);
             }
 
