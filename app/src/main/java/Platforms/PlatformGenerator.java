@@ -46,7 +46,7 @@ public class PlatformGenerator implements IGameObject {
                     break;
 
                 case 2:
-                    scene.add(MovingPlatform.get(x, 300 * i, null));
+                    scene.add(MovingPlatform.get(x, 300 * i, tempItem));
 
                     break;
 

@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
@@ -42,6 +43,13 @@ public class Sprite implements IGameObject {
         this.height = height;
         radius = Math.min(width, height) / 2;
         RectUtil.setRect(dstRect, x, Metrics.height-y, width, height);
+    }
+
+    public void setPosition(float x, float y){
+        this.x = x;
+        this.y = y;
+        RectUtil.setRect(dstRect, x, Metrics.height-y, width, height);
+        Log.d("DEBUG_TAG", "아이템이 Sprite 객체가 아닙니다.");
     }
 
     public void setDstRectWithCamera(float camera_y){

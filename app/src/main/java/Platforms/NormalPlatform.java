@@ -42,8 +42,6 @@ public class NormalPlatform extends Platform {
     }
 
 
-
-
     public NormalPlatform init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
         return this;

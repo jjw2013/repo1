@@ -32,8 +32,10 @@ public class Spring extends Sprite implements Item, ILayerProvider, IBoxCollidab
 
     @Override
     public void applyItemTo(Doodler doodler) {
-        doodler.use_item_spring();
-        deleteMark =true;
+        if(doodler.isFalling()) {
+            doodler.use_item_spring();
+            deleteMark = true;
+        }
 
     }
 
