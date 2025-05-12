@@ -14,8 +14,11 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
     private static final float GRAVITY = 800f;
     private boolean isFalling= true;
-
     private boolean stomped = false;
+
+    private boolean rocketmode =false;
+    private float rockettimer=5;
+
 
     protected RectF collisionRect= new RectF();
 
@@ -72,7 +75,19 @@ public class Doodler extends Sprite implements IBoxCollidable {
         super.update();
         checkFalling();
 
-        dy -= GRAVITY * GameView.frameTime;
+        if(rocketmode) {
+            dy = jumpSpeed*2;
+
+            rockettimer -= GameView.frameTime;
+
+            if(rockettimer<0){
+                rocketmode= false;
+            }
+        }
+
+        else
+            dy -= GRAVITY * GameView.frameTime;
+
 
         if( y< Camera.deadline)
             Camera.unlock_camera_y_with_deadline();
@@ -142,5 +157,10 @@ public class Doodler extends Sprite implements IBoxCollidable {
         if(stomp_something())
             dy += jumpSpeed;
 
+    }
+
+    public void use_item_rocket() {
+        rocketmode = true;
+        rockettimer=5;
     }
 }

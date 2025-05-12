@@ -48,7 +48,7 @@ public class MovingPlatform extends Platform {
         if (item != null) {
 
             Sprite itemx = (Sprite) item;
-            itemx.setPosition(x,y +25f);
+            itemx.setPosition(x,y +50f);
         }
 
     }

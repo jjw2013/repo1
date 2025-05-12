@@ -7,6 +7,7 @@ import com.example.doodle.MainScene;
 import java.util.Random;
 
 import Items.Item;
+import Items.Rocket;
 import Items.Spring;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
@@ -41,8 +42,9 @@ public class PlatformGenerator implements IGameObject {
 
             Item tempItem = null;
             if(chance < 10)
-                tempItem= Spring.get(x,300*i+25f);
-
+                tempItem= Spring.get(x,300*i+50f);
+            else if (chance <20)
+                tempItem= Rocket.get(x,300*i+50f);
 
 
             int type = randG.nextInt(101) +1;
