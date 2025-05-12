@@ -51,6 +51,7 @@ public class PlatformGenerator implements IGameObject {
             tempItem = Rocket.get(x, last_platform_generated_Y + 50f);
 
 
+
         int type = randG.nextInt(101) + 1;
 
         if (type < 60)

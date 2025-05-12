@@ -1,16 +1,15 @@
-package Platforms;
+package Debris_;
 
 import android.graphics.Canvas;
-import android.graphics.RectF;
 
 import com.example.doodle.Camera;
 import com.example.doodle.MainScene;
 
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.ILayerProvider;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public abstract class Debris extends Sprite implements IRecyclable, ILayerProvider {
@@ -21,6 +20,7 @@ public abstract class Debris extends Sprite implements IRecyclable, ILayerProvid
     }
     public abstract Debris init(float x , float y);
 
+    private static final float GRAVITY = 800f;
 
     @Override
     public void draw(Canvas canvas) {
@@ -36,6 +36,8 @@ public abstract class Debris extends Sprite implements IRecyclable, ILayerProvid
 
         if(isOutOfCameraRange())
             Scene.top().remove(this);
+        dy -= GRAVITY * GameView.frameTime;
+        dx -= 50f;
 
     }
 

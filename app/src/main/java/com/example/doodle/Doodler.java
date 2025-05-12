@@ -5,8 +5,11 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
+import Debris_.EmptyRocketCanister;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
@@ -89,6 +92,8 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
             if(rockettimer<0){
                 rocketmode= false;
+                IGameObject canister;
+                Scene.top().add(EmptyRocketCanister.get(x-68f,y-15f));
             }
         }
 
