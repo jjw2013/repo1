@@ -9,8 +9,15 @@ public class EmptyRocketCanister extends Debris{
     private static final float PLATFORM_WIDTH = 40f;
     private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 125 / 35;
 
+    private float speed= 2200f;
+
     public EmptyRocketCanister(){
         super(R.mipmap.rocket_part);
+    }
+
+    @Override
+    public void update() {
+        super.update();
     }
 
     public static EmptyRocketCanister get(float x, float y) {
@@ -21,6 +28,8 @@ public class EmptyRocketCanister extends Debris{
 
     public EmptyRocketCanister init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        dy = speed;
+        degree=0;
         return this;
     }
 }

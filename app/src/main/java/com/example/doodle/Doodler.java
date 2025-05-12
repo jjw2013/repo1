@@ -133,7 +133,9 @@ public class Doodler extends Sprite implements IBoxCollidable {
     public void draw(Canvas canvas) {
 
 
+
         super.setDstRectWithCamera(Camera.getCameraY(y));
+
         super.draw(canvas);
         super.revertDstRect();
 

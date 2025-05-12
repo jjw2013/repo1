@@ -20,24 +20,32 @@ public abstract class Debris extends Sprite implements IRecyclable, ILayerProvid
     }
     public abstract Debris init(float x , float y);
 
-    private static final float GRAVITY = 800f;
+    public float degree=0;
+
+    private static final float GRAVITY = 2000f;
 
     @Override
     public void draw(Canvas canvas) {
 
         super.setDstRectWithCamera(Camera.getCameraY(y));
+
+
         super.draw(canvas);
+
         super.revertDstRect();
+
     }
 
     @Override
     public void update() {
         super.update();
 
+
+        dy -= GRAVITY * GameView.frameTime;
+        dx = -40.0f;
+
         if(isOutOfCameraRange())
             Scene.top().remove(this);
-        dy -= GRAVITY * GameView.frameTime;
-        dx -= 50f;
 
     }
 
