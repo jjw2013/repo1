@@ -20,6 +20,8 @@ public class Spring extends Sprite implements Item, ILayerProvider, IBoxCollidab
 
     protected RectF collisionRect = new RectF();
 
+    public boolean deleteMark = false;
+
     private static final float PLATFORM_WIDTH = 50f;
     private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 53 / 46;
 
@@ -31,7 +33,13 @@ public class Spring extends Sprite implements Item, ILayerProvider, IBoxCollidab
     @Override
     public void applyItemTo(Doodler doodler) {
         doodler.use_item_spring();
+        deleteMark =true;
 
+    }
+
+    @Override
+    public boolean isMarked() {
+        return deleteMark;
     }
 
     @Override
@@ -48,9 +56,12 @@ public class Spring extends Sprite implements Item, ILayerProvider, IBoxCollidab
     public void update() {
         super.update();
 
-        if( y< Camera.deadline)
-            Scene.top().remove(this);
 
+    }
+
+    public void deleteThis(){
+        deleteMark=false;
+        Scene.top().remove(this);
     }
 
 

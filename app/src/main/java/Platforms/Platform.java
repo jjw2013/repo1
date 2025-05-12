@@ -29,6 +29,15 @@ public abstract class Platform extends Sprite implements IBoxCollidable, ILayerP
     protected RectF collisionRect = new RectF();
 
 
+    protected Item item;
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Item getItem() {
+        return this.item;
+    }
 
     public Platform(int mipmapId) {
         super(mipmapId);
@@ -42,6 +51,13 @@ public abstract class Platform extends Sprite implements IBoxCollidable, ILayerP
 
         if(isOutOfCameraRange())
             Scene.top().remove(this);
+
+        if(item !=null){
+            if(item.isMarked()) {
+                item.deleteThis();
+                item=null;
+            }
+        }
 
     }
 
@@ -80,6 +96,12 @@ public abstract class Platform extends Sprite implements IBoxCollidable, ILayerP
     @Override
     public void onRecycle() {
 
+
+        if( item !=null)
+            item.deleteThis();
+
+
+        item = null;
     }
 
 

@@ -20,7 +20,7 @@ public class NormalPlatform extends Platform {
     private static final float PLATFORM_WIDTH = 175f;
     private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 23 / 105;
 
-    private static Item item;
+
 
 
     public NormalPlatform() {
@@ -28,13 +28,20 @@ public class NormalPlatform extends Platform {
     }
 
     public static NormalPlatform get(float x, float y, Item itemx) {
-        if(itemx != null) {
+
+        NormalPlatform platform = Scene.top().getRecyclable(NormalPlatform.class).init(x, y);
+
+
+        if (itemx != null) {
             Scene.top().add((ILayerProvider<?>) itemx);
-            item = itemx;
+            platform.setItem(itemx);
         }
 
-        return Scene.top().getRecyclable(NormalPlatform.class).init(x, y);
+        return platform;
+
     }
+
+
 
 
     public NormalPlatform init(float x, float y) {
@@ -42,9 +49,5 @@ public class NormalPlatform extends Platform {
         return this;
     }
 
-    @Override
-    public void onRecycle() {
-        super.onRecycle();
-        item = null;
-    }
+
 }
