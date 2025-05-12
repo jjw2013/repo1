@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.doodle.R;
 
+import Items.Item;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
@@ -37,17 +38,19 @@ public class CloudPlatform extends Platform {
 
     }
 
+    public static CloudPlatform get(float x, float y, Item item) {
+        return Scene.top().getRecyclable(CloudPlatform.class).init(x, y, item);
+    }
+
+    public CloudPlatform init(float x, float y, Item item) {
+        setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        this.item= item;
+        return this;
+    }
+
+
     public void stompedByDoodler(){
         stomped=true;
-    }
-
-    public static CloudPlatform get(float x, float y) {
-        return Scene.top().getRecyclable(CloudPlatform.class).init(x, y);
-    }
-
-    public CloudPlatform init(float x, float y) {
-        setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        return this;
     }
 
 

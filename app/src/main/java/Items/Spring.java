@@ -1,7 +1,9 @@
 package Items;
 
+import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import com.example.doodle.Camera;
 import com.example.doodle.Doodler;
 import com.example.doodle.MainScene;
 import com.example.doodle.R;
@@ -45,7 +47,10 @@ public class Spring extends Sprite implements Item, ILayerProvider, IBoxCollidab
     @Override
     public void update() {
         super.update();
-        updateCollisionRect();
+
+        if( y< Camera.deadline)
+            Scene.top().remove(this);
+
     }
 
 
@@ -58,6 +63,13 @@ public class Spring extends Sprite implements Item, ILayerProvider, IBoxCollidab
 
     }
 
+    @Override
+    public void draw(Canvas canvas) {
+        super.setDstRectWithCamera(Camera.getCameraY(y));
+        super.draw(canvas);
+        super.revertDstRect();
+        updateCollisionRect();
+    }
 
     public static Spring get(float x, float y) {
         return Scene.top().getRecyclable(Spring.class).init(x, y);

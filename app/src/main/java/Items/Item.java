@@ -8,8 +8,4 @@ public interface Item {
 
     public void applyItemTo(Doodler doodler);
 
-
-
-
-
 }

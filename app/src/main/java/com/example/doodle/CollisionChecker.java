@@ -4,10 +4,11 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
+import Items.Item;
 import Platforms.CloudPlatform;
 import Platforms.FakePlatform;
-import Platforms.NormalPlatform;
 import Platforms.Platform;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.CollisionHelper;
 
@@ -42,9 +43,21 @@ public class CollisionChecker implements IGameObject {
                     continue;
 
                 }
-                doodler.stomped();
+                doodler.stomp_something();
             }
         }
+
+        ArrayList<IGameObject> items = scene.objectsAt(MainScene.Layer.item);
+        for (int e = items.size() - 1; e >= 0; e--) {
+            Item item = (Item) items.get(e);
+
+            if(CollisionHelper.collides(doodler, (IBoxCollidable) item)){
+                item.applyItemTo(doodler);
+            }
+
+
+        }
+
     }
 
     @Override

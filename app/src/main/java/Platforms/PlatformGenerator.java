@@ -37,21 +37,20 @@ public class PlatformGenerator implements IGameObject {
             int type = randG.nextInt(2) +1;
             switch (type){
                 case 1:
-                    scene.add(NormalPlatform.get(x, 300 * i));
-
+                    scene.add(NormalPlatform.get(x, 300 * i, null));
                     break;
 
                 case 2:
-                    scene.add(MovingPlatform.get(x, 300 * i));
+                    scene.add(MovingPlatform.get(x, 300 * i, null));
 
                     break;
 
                 case 3:
-                    scene.add(CloudPlatform.get(x, 300 * i));
+                    scene.add(CloudPlatform.get(x, 300 * i, null));
                     break;
 
                 case 4:
-                    scene.add(FakePlatform.get(x, 300 * i));
+                    scene.add(FakePlatform.get(x, 300 * i, null));
                     break;
             }
         }

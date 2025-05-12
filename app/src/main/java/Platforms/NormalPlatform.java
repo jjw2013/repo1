@@ -7,6 +7,7 @@ import com.example.doodle.Camera;
 import com.example.doodle.MainScene;
 import com.example.doodle.R;
 
+import Items.Item;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.ILayerProvider;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IRecyclable;
@@ -24,15 +25,15 @@ public class NormalPlatform extends Platform {
         super(R.mipmap.platform);
     }
 
-    public static NormalPlatform get(float x, float y) {
-        return Scene.top().getRecyclable(NormalPlatform.class).init(x, y);
+    public static NormalPlatform get(float x, float y, Item item) {
+        return Scene.top().getRecyclable(NormalPlatform.class).init(x, y, item);
     }
 
-    public NormalPlatform init(float x, float y) {
+    public NormalPlatform init(float x, float y, Item item) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        this.item= item;
         return this;
     }
-
 
 
 

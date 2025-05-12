@@ -1,15 +1,12 @@
 package com.example.doodle;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
@@ -18,7 +15,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
     private static final float GRAVITY = 800f;
     private boolean isFalling= true;
 
-    private boolean stomp = false;
+    private boolean stomped = false;
 
     protected RectF collisionRect= new RectF();
 
@@ -49,33 +46,31 @@ public class Doodler extends Sprite implements IBoxCollidable {
         return y;
     }
 
-    public void stomped(){
-        if(isFalling())
-            stomp= true;
+    public boolean stomp_something(){
+        if(isFalling) {
+            stomped = true;
+            addJumpSpeed();
+            return true;
+        }
+        return false;
     }
 
     public void addJumpSpeed(){
         isFalling= false;
-        stomp= false;
-
+        stomped = false;
         dy = jumpSpeed;
 
+    }
+
+    public void checkFalling(){
+        if(!isFalling && dy < 0)
+            isFalling = true;
     }
 
     @Override
     public void update() {
         super.update();
-
-
-        if(stomp)
-            addJumpSpeed();
-
-        if(!isFalling && dy < 0) {
-            isFalling = true;
-        }
-
-        //if ( y < 0 )
-        //    stomped();
+        checkFalling();
 
         dy -= GRAVITY * GameView.frameTime;
 
@@ -144,6 +139,8 @@ public class Doodler extends Sprite implements IBoxCollidable {
     }
 
     public void use_item_spring() {
+        if(stomp_something())
+            dy += jumpSpeed;
 
     }
 }

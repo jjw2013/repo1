@@ -2,6 +2,7 @@ package Platforms;
 
 import com.example.doodle.R;
 
+import Items.Item;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 
 public class FakePlatform extends Platform {
@@ -30,12 +31,13 @@ public class FakePlatform extends Platform {
         stomped=true;
     }
 
-    public static FakePlatform get(float x, float y) {
-        return Scene.top().getRecyclable(FakePlatform.class).init(x, y);
+    public static FakePlatform get(float x, float y, Item item) {
+        return Scene.top().getRecyclable(FakePlatform.class).init(x, y, item);
     }
 
-    public FakePlatform init(float x, float y) {
+    public FakePlatform init(float x, float y, Item item) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        this.item= item;
         return this;
     }
 
