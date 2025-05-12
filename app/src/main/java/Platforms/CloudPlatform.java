@@ -39,12 +39,11 @@ public class CloudPlatform extends Platform {
     }
 
     public static CloudPlatform get(float x, float y, Item item) {
-        return Scene.top().getRecyclable(CloudPlatform.class).init(x, y, item);
+        return Scene.top().getRecyclable(CloudPlatform.class).init(x, y);
     }
 
-    public CloudPlatform init(float x, float y, Item item) {
+    public CloudPlatform init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        this.item= item;
         return this;
     }
 

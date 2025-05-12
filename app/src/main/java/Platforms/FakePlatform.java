@@ -32,12 +32,11 @@ public class FakePlatform extends Platform {
     }
 
     public static FakePlatform get(float x, float y, Item item) {
-        return Scene.top().getRecyclable(FakePlatform.class).init(x, y, item);
+        return Scene.top().getRecyclable(FakePlatform.class).init(x, y);
     }
 
-    public FakePlatform init(float x, float y, Item item) {
+    public FakePlatform init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        this.item= item;
         return this;
     }
 

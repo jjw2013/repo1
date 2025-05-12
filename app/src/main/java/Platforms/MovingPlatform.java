@@ -44,12 +44,11 @@ public class MovingPlatform extends Platform {
     }
 
     public static MovingPlatform get(float x, float y, Item item) {
-        return Scene.top().getRecyclable(MovingPlatform.class).init(x, y, item);
+        return Scene.top().getRecyclable(MovingPlatform.class).init(x, y);
     }
 
-    public MovingPlatform init(float x, float y, Item item) {
+    public MovingPlatform init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        this.item= item;
         return this;
     }
 

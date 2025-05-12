@@ -20,21 +20,31 @@ public class NormalPlatform extends Platform {
     private static final float PLATFORM_WIDTH = 175f;
     private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 23 / 105;
 
+    private static Item item;
+
 
     public NormalPlatform() {
         super(R.mipmap.platform);
     }
 
-    public static NormalPlatform get(float x, float y, Item item) {
-        return Scene.top().getRecyclable(NormalPlatform.class).init(x, y, item);
+    public static NormalPlatform get(float x, float y, Item itemx) {
+        if(itemx != null) {
+            Scene.top().add((ILayerProvider<?>) itemx);
+            item = itemx;
+        }
+
+        return Scene.top().getRecyclable(NormalPlatform.class).init(x, y);
     }
 
-    public NormalPlatform init(float x, float y, Item item) {
+
+    public NormalPlatform init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
-        this.item= item;
         return this;
     }
 
-
-
+    @Override
+    public void onRecycle() {
+        super.onRecycle();
+        item = null;
+    }
 }

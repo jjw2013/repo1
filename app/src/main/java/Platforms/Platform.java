@@ -28,13 +28,13 @@ public abstract class Platform extends Sprite implements IBoxCollidable, ILayerP
 
     protected RectF collisionRect = new RectF();
 
-    protected Item item;
+
 
     public Platform(int mipmapId) {
         super(mipmapId);
     }
 
-    public abstract Platform init(float x , float y, Item item);
+    public abstract Platform init(float x , float y);
 
     @Override
     public void update() {
