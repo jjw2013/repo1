@@ -30,34 +30,32 @@ public class PlatformGenerator implements IGameObject {
 
 
         for (int i=0;i<60;i++){
-            float min = Metrics.width * 0.13f;
+            float min = Metrics.width * 0.21f;
             float max = Metrics.width - min;
-
             int x = randG.nextInt((int)(max - min + 1)) + (int)min;
 
-            int type = randG.nextInt(2) +1;
 
 
-            Item tempItem = Spring.get(x,300*i+25f);
 
-            switch (type){
-                case 1:
-                    scene.add(NormalPlatform.get(x, 300 * i, tempItem));
-                    break;
+            int chance = randG.nextInt(100) + 1;
 
-                case 2:
-                    scene.add(MovingPlatform.get(x, 300 * i, tempItem));
+            Item tempItem = null;
+            if(chance < 10)
+                tempItem= Spring.get(x,300*i+25f);
 
-                    break;
 
-                case 3:
-                    scene.add(CloudPlatform.get(x, 300 * i, null));
-                    break;
 
-                case 4:
-                    scene.add(FakePlatform.get(x, 300 * i, null));
-                    break;
-            }
+            int type = randG.nextInt(101) +1;
+
+            if(type<60)
+                scene.add(NormalPlatform.get(x, 300 * i, tempItem));
+            else if(type<80)
+                scene.add(MovingPlatform.get(x, 300 * i, tempItem));
+            else if (type<95)
+                scene.add(CloudPlatform.get(x, 300 * i, tempItem));
+            else
+                scene.add(FakePlatform.get(x, 300 * i, tempItem));
+
         }
 
 
