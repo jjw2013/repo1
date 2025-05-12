@@ -36,7 +36,7 @@ public class MainScene extends Scene {
 
 
 
-        add(Layer.controller, new PlatformGenerator(this));
+        add(Layer.controller, new PlatformGenerator(this, doodler));
         add(Layer.controller, new CollisionChecker(this, doodler));
 
 

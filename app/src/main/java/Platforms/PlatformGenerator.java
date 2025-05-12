@@ -2,6 +2,7 @@ package Platforms;
 
 import android.graphics.Canvas;
 
+import com.example.doodle.Doodler;
 import com.example.doodle.MainScene;
 
 import java.util.Random;
@@ -16,13 +17,18 @@ public class PlatformGenerator implements IGameObject {
 
 
     private final MainScene scene;
+    private Doodler doodler;
+    private float last_platform_generated_Y=0;
+    private boolean ready_to_generate_platform =true;
 
     Random randG = new Random();
 
-    public PlatformGenerator(MainScene mainScene) {
+    public PlatformGenerator(MainScene mainScene, Doodler doodler) {
         this.scene = mainScene;
 
+        this.doodler = doodler;
     }
+
 
 
 
@@ -30,35 +36,34 @@ public class PlatformGenerator implements IGameObject {
     private void generate() {
 
 
-        for (int i=0;i<60;i++){
-            float min = Metrics.width * 0.21f;
-            float max = Metrics.width - min;
-            int x = randG.nextInt((int)(max - min + 1)) + (int)min;
+
+        float min = Metrics.width * 0.21f;
+        float max = Metrics.width - min;
+        int x = randG.nextInt((int) (max - min + 1)) + (int) min;
 
 
+        int chance = randG.nextInt(100) + 1;
+
+        Item tempItem = null;
+        if (chance < 10)
+            tempItem = Spring.get(x, last_platform_generated_Y + 50f);
+        else if (chance < 20)
+            tempItem = Rocket.get(x, last_platform_generated_Y + 50f);
 
 
-            int chance = randG.nextInt(100) + 1;
+        int type = randG.nextInt(101) + 1;
 
-            Item tempItem = null;
-            if(chance < 10)
-                tempItem= Spring.get(x,300*i+50f);
-            else if (chance <20)
-                tempItem= Rocket.get(x,300*i+50f);
+        if (type < 60)
+            scene.add(NormalPlatform.get(x, last_platform_generated_Y, tempItem));
+        else if (type < 80)
+            scene.add(MovingPlatform.get(x, last_platform_generated_Y, tempItem));
+        else if (type < 95)
+            scene.add(CloudPlatform.get(x, last_platform_generated_Y, tempItem));
+        else
+            scene.add(FakePlatform.get(x, last_platform_generated_Y, tempItem));
 
 
-            int type = randG.nextInt(101) +1;
-
-            if(type<60)
-                scene.add(NormalPlatform.get(x, 300 * i, tempItem));
-            else if(type<80)
-                scene.add(MovingPlatform.get(x, 300 * i, tempItem));
-            else if (type<95)
-                scene.add(CloudPlatform.get(x, 300 * i, tempItem));
-            else
-                scene.add(FakePlatform.get(x, 300 * i, tempItem));
-
-        }
+        ready_to_generate_platform=false;
 
 
         //Log.v(TAG, "Generating: wave " + wave + " : " + enemies.toString());
@@ -68,10 +73,13 @@ public class PlatformGenerator implements IGameObject {
 
     @Override
     public void update() {
-        if(!generated) {
+        if(doodler.getY()+Metrics.height - last_platform_generated_Y >233){
+            last_platform_generated_Y +=233;
+            ready_to_generate_platform=true;
             generate();
-            generated=true;
         }
+
+
     }
 
     @Override
