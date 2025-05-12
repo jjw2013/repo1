@@ -12,6 +12,11 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class Doodler extends Sprite implements IBoxCollidable {
 
+
+    Sprite equip;
+    private static final float EQUIP_PLANE_WIDTH = 40f;
+    private static final float EQUIP_PLANE_HEIGHT = EQUIP_PLANE_WIDTH * 125 / 35;
+
     private static final float GRAVITY = 800f;
     private boolean isFalling= true;
     private boolean stomped = false;
@@ -34,6 +39,8 @@ public class Doodler extends Sprite implements IBoxCollidable {
         super(R.mipmap.doodler);
         setPosition(Metrics.width/2,Metrics.height/2,PLANE_WIDTH, PLANE_HEIGHT);
         dy = jumpSpeed;
+
+        equip = new Sprite(R.mipmap.rocket_part);
 
     }
 
@@ -125,9 +132,14 @@ public class Doodler extends Sprite implements IBoxCollidable {
         super.draw(canvas);
         super.revertDstRect();
 
-
         updateCollisionRect();
 
+        if(rocketmode){
+            equip.setPosition(x-68f,y-15f,EQUIP_PLANE_WIDTH,EQUIP_PLANE_HEIGHT);
+            equip.setDstRectWithCamera(Camera.getCameraY(y));
+            equip.draw(canvas);
+            equip.revertDstRect();
+        }
 
     }
 
