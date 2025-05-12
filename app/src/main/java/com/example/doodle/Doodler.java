@@ -21,7 +21,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
     private boolean isFalling= true;
     private boolean stomped = false;
 
-    private boolean rocketmode =false;
+    public boolean rocketmode =false;
     private float rockettimer=5;
 
 

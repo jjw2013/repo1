@@ -49,6 +49,7 @@ public class FakePlatform extends Platform {
 
     public FakePlatform init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        stomped=false;
         return this;
     }
 

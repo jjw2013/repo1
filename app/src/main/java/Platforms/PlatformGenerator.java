@@ -45,7 +45,7 @@ public class PlatformGenerator implements IGameObject {
         int chance = randG.nextInt(100) + 1;
 
         Item tempItem = null;
-        if (chance < 10)
+        if (chance < 15)
             tempItem = Spring.get(x, last_platform_generated_Y + 50f);
         else if (chance < 20)
             tempItem = Rocket.get(x, last_platform_generated_Y + 50f);

@@ -33,8 +33,10 @@ public class Rocket extends Sprite implements Item, ILayerProvider, IBoxCollidab
     @Override
     public void applyItemTo(Doodler doodler) {
 
-        doodler.use_item_rocket();
-        deleteMark = true;
+        if(!doodler.rocketmode) {
+            doodler.use_item_rocket();
+            deleteMark = true;
+        }
 
     }
 
