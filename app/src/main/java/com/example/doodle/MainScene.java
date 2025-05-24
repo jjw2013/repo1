@@ -1,11 +1,15 @@
 package com.example.doodle;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.view.MotionEvent;
 
 import Platforms.PlatformGenerator;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 
-public class MainScene extends Scene {
+public class MainScene extends Scene  {
 
 
     private final Doodler doodler;
@@ -18,6 +22,8 @@ public class MainScene extends Scene {
     }
 
     public MainScene(){
+
+
 
 
         initLayers(Layer.COUNT);
@@ -47,11 +53,24 @@ public class MainScene extends Scene {
     }
 
     // Game Loop Functions
-
-
     // Overridables
+
+
+    private float tiltX = 0;
+    public void onTiltEvent(float x){
+
+        this.tiltX= x;
+        if(doodler != null){
+            doodler.ontiltevent(tiltX);
+        }
+    }
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return doodler.onTouch(event);
-    }
+   }
+
+
+
 }

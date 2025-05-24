@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.hardware.SensorEvent;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -180,6 +181,7 @@ public class Scene {
     public boolean onTouchEvent(MotionEvent event) {
         return false;
     }
+
 
     public void onEnter() {
         Log.v(TAG, "onEnter: " + getClass().getSimpleName());

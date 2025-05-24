@@ -3,6 +3,7 @@ package com.example.doodle;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.hardware.SensorEvent;
 import android.view.MotionEvent;
 
 import Debris_.EmptyRocketCanister;
@@ -100,6 +101,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
         else
             dy -= GRAVITY * GameView.frameTime;
 
+        dx = tiltX* 10f;
 
         if( y< Camera.deadline)
             Camera.unlock_camera_y_with_deadline();
@@ -181,5 +183,12 @@ public class Doodler extends Sprite implements IBoxCollidable {
     public void use_item_rocket() {
         rocketmode = true;
         rockettimer=5;
+    }
+
+
+    float tiltX = 0;
+    public void ontiltevent(float tiltX) {
+        this.tiltX = tiltX;
+
     }
 }
