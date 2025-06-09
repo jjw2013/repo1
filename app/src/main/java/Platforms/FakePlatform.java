@@ -9,7 +9,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 public class FakePlatform extends Platform {
 
 
-    private static final float PLATFORM_WIDTH = 175f;
+    private static final float PLATFORM_WIDTH = 100f;
     private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 23 / 105;
     private boolean stomped = false;
 
