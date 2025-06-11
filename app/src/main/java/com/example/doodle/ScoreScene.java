@@ -9,7 +9,7 @@ import Platforms.PlatformGenerator;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 
-public class MenuScene extends Scene {
+public class ScoreScene extends Scene {
 
 
     private final Doodler doodler;
@@ -21,7 +21,7 @@ public class MenuScene extends Scene {
         public static final int COUNT = values().length;
     }
 
-    public MenuScene(){
+    public ScoreScene(){
 
 
         initLayers(Layer.COUNT);
@@ -36,10 +36,6 @@ public class MenuScene extends Scene {
 
         this.camera = new Camera(doodler);
         add(Layer.controller, camera);
-
-        add(Layer.ui, new playButton());
-        add(Layer.ui, new scoreButton());
-
 
 
 

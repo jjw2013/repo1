@@ -6,7 +6,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 
 public class EmptyRocketCanister extends Debris{
 
-    private static final float PLATFORM_WIDTH = 40f;
+    private static final float PLATFORM_WIDTH = 30f;
     private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 125 / 35;
 
     private float speed= 2200f;

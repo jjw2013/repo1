@@ -18,8 +18,9 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
 
     Sprite equip;
-    private static final float EQUIP_PLANE_WIDTH = 40f;
+    private static final float EQUIP_PLANE_WIDTH = 30f;
     private static final float EQUIP_PLANE_HEIGHT = EQUIP_PLANE_WIDTH * 125 / 35;
+
 
     private static final float GRAVITY = 800f;
     private boolean isFalling= true;
@@ -31,14 +32,30 @@ public class Doodler extends Sprite implements IBoxCollidable {
     public boolean hult = false;
 
 
+    public int max_height=0;
+
     protected RectF collisionRect= new RectF();
 
     private float jumpSpeed = 1000f;
-    private static final float PLANE_WIDTH = 100f;
+    private static final float PLANE_WIDTH = 120f;
     private static final float PLANE_HEIGHT = PLANE_WIDTH * 210 / 251;
 
     public float targetX;
 
+
+    public NumberPainter score;
+    public Doodler(NumberPainter num){
+
+
+
+        super(R.mipmap.doodler);
+        setPosition(Metrics.width/2,Metrics.height/2,PLANE_WIDTH, PLANE_HEIGHT);
+        dy = jumpSpeed;
+        score = num;
+
+        equip = new Sprite(R.mipmap.rocket_part);
+
+    }
 
     public Doodler(){
 
@@ -99,7 +116,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
             if(rockettimer<0){
                 rocketmode= false;
                 IGameObject canister;
-                Scene.top().add(EmptyRocketCanister.get(x-68f,y-15f));
+                Scene.top().add(EmptyRocketCanister.get(x-48f,y-15f));
             }
         }
 
@@ -107,6 +124,14 @@ public class Doodler extends Sprite implements IBoxCollidable {
             dy -= GRAVITY * GameView.frameTime;
 
         dx = tiltX* 10f;
+
+
+
+        if(max_height < getY()) {
+            max_height= (int)getY();
+            score.set_score(max_height/10);
+        }
+
 
         if( y< Camera.deadline) {
             Camera.unlock_camera_y_with_deadline();
@@ -152,11 +177,12 @@ public class Doodler extends Sprite implements IBoxCollidable {
         updateCollisionRect();
 
         if(rocketmode){
-            equip.setPosition(x-68f,y-15f,EQUIP_PLANE_WIDTH,EQUIP_PLANE_HEIGHT);
+            equip.setPosition(x-48f,y-15f,EQUIP_PLANE_WIDTH,EQUIP_PLANE_HEIGHT);
             equip.setDstRectWithCamera(Camera.getCameraY(y));
             equip.draw(canvas);
             equip.revertDstRect();
         }
+
 
     }
 

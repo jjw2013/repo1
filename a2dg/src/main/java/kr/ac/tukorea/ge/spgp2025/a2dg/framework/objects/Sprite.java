@@ -81,6 +81,7 @@ public class Sprite implements IGameObject {
         canvas.drawBitmap(bitmap, srcRect, dstRect, null);
     }
 
+
     protected static Paint bboxPaint;
 }
 

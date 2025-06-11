@@ -15,6 +15,7 @@ public class MainScene extends Scene  {
     private final Doodler doodler;
     private final Camera camera;
 
+    private final NumberPainter score;
 
     public enum Layer {
         bg, enemy, bullet, platform,item, debris ,doodler, ui, controller;
@@ -33,8 +34,10 @@ public class MainScene extends Scene  {
         add(Layer.bg, new Background());
 
 
+        this.score = new NumberPainter(0,0);
+        add(MainScene.Layer.ui, score);
 
-        this.doodler= new Doodler();
+        this.doodler= new Doodler(score);
         add(Layer.doodler, doodler);
 
         this.camera = new Camera(doodler);
@@ -44,8 +47,15 @@ public class MainScene extends Scene  {
 
 
 
+
+
         add(Layer.controller, new PlatformGenerator(this, doodler));
         add(Layer.controller, new CollisionChecker(this, doodler));
+
+
+
+
+
 
 
 
