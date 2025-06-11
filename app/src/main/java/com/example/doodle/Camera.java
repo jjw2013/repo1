@@ -27,6 +27,10 @@ public class Camera implements IGameObject {
         this.doodler = doodler;
     }
 
+    public static void onEnter(){
+        lock_camera_y_with_deadline= true;
+    }
+
     public void update() {
         worldX = doodler.getX();
         worldY = doodler.getY();

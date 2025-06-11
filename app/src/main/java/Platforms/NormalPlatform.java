@@ -17,7 +17,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class NormalPlatform extends Platform {
 
-    private static final float PLATFORM_WIDTH = 175f;
+    private static final float PLATFORM_WIDTH = 100f;
     private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 23 / 105;
 
 

@@ -28,11 +28,13 @@ public class Doodler extends Sprite implements IBoxCollidable {
     public boolean rocketmode =false;
     private float rockettimer=5;
 
+    public boolean hult = false;
+
 
     protected RectF collisionRect= new RectF();
 
     private float jumpSpeed = 1000f;
-    private static final float PLANE_WIDTH = 175f;
+    private static final float PLANE_WIDTH = 100f;
     private static final float PLANE_HEIGHT = PLANE_WIDTH * 210 / 251;
 
     public float targetX;
@@ -83,6 +85,9 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
     @Override
     public void update() {
+        if(hult)
+            return;
+
         super.update();
         checkFalling();
 
@@ -103,8 +108,11 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
         dx = tiltX* 10f;
 
-        if( y< Camera.deadline)
+        if( y< Camera.deadline) {
             Camera.unlock_camera_y_with_deadline();
+            Scene.pop();
+
+        }
 
 
 

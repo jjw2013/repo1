@@ -1,15 +1,15 @@
 package com.example.doodle;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+
+import Platforms.Platform;
 import Platforms.PlatformGenerator;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 
-public class MainScene extends Scene  {
+public class MenuScene extends Scene {
 
 
     private final Doodler doodler;
@@ -21,11 +21,7 @@ public class MainScene extends Scene  {
         public static final int COUNT = values().length;
     }
 
-    public MainScene(){
-
-        Camera.onEnter();
-
-
+    public MenuScene(){
 
 
         initLayers(Layer.COUNT);
@@ -35,44 +31,33 @@ public class MainScene extends Scene  {
 
 
         this.doodler= new Doodler();
+        doodler.hult=true;
         add(Layer.doodler, doodler);
 
         this.camera = new Camera(doodler);
         add(Layer.controller, camera);
 
-
-
-
-
-        add(Layer.controller, new PlatformGenerator(this, doodler));
-        add(Layer.controller, new CollisionChecker(this, doodler));
-
-
-
+        add(Layer.ui, new playButton());
 
 
 
     }
 
     // Game Loop Functions
+
+
     // Overridables
-
-
-    private float tiltX = 0;
-    public void onTiltEvent(float x){
-
-        this.tiltX= x;
-        if(doodler != null){
-            doodler.ontiltevent(tiltX);
-        }
-    }
-
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return doodler.onTouch(event);
-   }
+
+        ArrayList<IGameObject> buttons = objectsAt(MenuScene.Layer.ui);
 
 
+        for (int e = buttons.size() - 1; e >= 0; e--) {
+            Button b = (Button) buttons.get(e);
+            b.onTouch(event);
+        }
 
+        return false;
+    }
 }
