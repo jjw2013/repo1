@@ -155,7 +155,11 @@ public class Doodler extends Sprite implements IBoxCollidable {
         else
             dy -= GRAVITY * GameView.frameTime;
 
-        dx = tiltX* 10f;
+        dx = tiltX* -400f;
+        if(x<0)
+            x= Metrics.width;
+        if(x>Metrics.width)
+            x=0;
 
 
 
