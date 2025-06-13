@@ -16,7 +16,11 @@ public class doodleActivity extends GameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         new MenuScene().push();
 
     }
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.doodle;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
@@ -25,6 +26,9 @@ public class Doodler extends Sprite implements IBoxCollidable {
     private static final float GRAVITY = 800f;
     private boolean isFalling= true;
     private boolean stomped = false;
+    public boolean invisible = false;
+
+    public boolean hit =false;
 
     public boolean rocketmode =false;
     private float rockettimer=5;
@@ -80,6 +84,9 @@ public class Doodler extends Sprite implements IBoxCollidable {
     }
 
     public boolean stomp_something(){
+        if (hit)
+            return false;
+
         if(isFalling) {
             stomped = true;
             addJumpSpeed();
@@ -95,9 +102,34 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
     }
 
+    public void hit_mob(){
+        if(rocketmode)
+            return;
+        hit=true;
+        dy=0;
+    }
+
     public void checkFalling(){
         if(!isFalling && dy < 0)
             isFalling = true;
+    }
+
+    public void use_item_spring() {
+        if(stomp_something())
+            dy += jumpSpeed;
+
+    }
+
+    public void use_item_rocket() {
+        rocketmode = true;
+        rockettimer=5;
+    }
+
+
+    float tiltX = 0;
+    public void ontiltevent(float tiltX) {
+        this.tiltX = tiltX;
+
     }
 
     @Override
@@ -135,6 +167,8 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
         if( y< Camera.deadline) {
             Camera.unlock_camera_y_with_deadline();
+            Context context = GameView.view.getContext();
+            ScoreManager.getInstance(context).addScore(score.score);
             Scene.pop();
 
         }
@@ -167,12 +201,14 @@ public class Doodler extends Sprite implements IBoxCollidable {
     @Override
     public void draw(Canvas canvas) {
 
+        if(invisible)
+            return;
 
 
         super.setDstRectWithCamera(Camera.getCameraY(y));
-
         super.draw(canvas);
         super.revertDstRect();
+
 
         updateCollisionRect();
 
@@ -208,21 +244,5 @@ public class Doodler extends Sprite implements IBoxCollidable {
                 collisionRect.bottom);
     }
 
-    public void use_item_spring() {
-        if(stomp_something())
-            dy += jumpSpeed;
 
-    }
-
-    public void use_item_rocket() {
-        rocketmode = true;
-        rockettimer=5;
-    }
-
-
-    float tiltX = 0;
-    public void ontiltevent(float tiltX) {
-        this.tiltX = tiltX;
-
-    }
 }

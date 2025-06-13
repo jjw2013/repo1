@@ -58,6 +58,24 @@ public class CollisionChecker implements IGameObject {
 
         }
 
+        ArrayList<IGameObject> mobs = scene.objectsAt(MainScene.Layer.enemy);
+        for (int e = mobs.size() - 1; e >= 0; e--) {
+            Monster mob = (Monster) mobs.get(e);
+
+            if(CollisionHelper.collides(doodler, (IBoxCollidable) mob)){
+                if(!doodler.hit && !doodler.isFalling())
+                    doodler.hit_mob();
+
+                if(!doodler.hit && doodler.isFalling()) {
+                    doodler.stomp_something();
+                    mob.remove_this= true;
+
+                }
+            }
+
+
+        }
+
     }
 
     @Override

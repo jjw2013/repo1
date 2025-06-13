@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 
 import com.example.doodle.Doodler;
 import com.example.doodle.MainScene;
+import com.example.doodle.Monster;
 
 import java.util.Random;
 
@@ -46,9 +47,9 @@ public class PlatformGenerator implements IGameObject {
 
         Item tempItem = null;
         if (chance < 15)
-            tempItem = Spring.get(x, last_platform_generated_Y + 50f);
+            tempItem = Spring.get(x, last_platform_generated_Y + 25f);
         else if (chance < 20)
-            tempItem = Rocket.get(x, last_platform_generated_Y + 50f);
+            tempItem = Rocket.get(x, last_platform_generated_Y + 25f);
 
 
 
@@ -62,6 +63,11 @@ public class PlatformGenerator implements IGameObject {
             scene.add(CloudPlatform.get(x, last_platform_generated_Y, tempItem));
         else
             scene.add(FakePlatform.get(x, last_platform_generated_Y, tempItem));
+
+        int monster_type = randG.nextInt(101) + 1;
+
+        if(monster_type<10)
+            scene.add(Monster.get(x, last_platform_generated_Y));
 
 
         ready_to_generate_platform=false;

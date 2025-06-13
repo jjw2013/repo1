@@ -22,7 +22,7 @@ public class Spring extends Sprite implements Item, ILayerProvider, IBoxCollidab
 
     public boolean deleteMark = false;
 
-    private static final float PLATFORM_WIDTH = 50f;
+    private static final float PLATFORM_WIDTH = 30f;
     private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 53 / 46;
 
 
