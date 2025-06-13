@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import androidx.activity.EdgeToEdge;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             float tiltX = event.values[0];
+            Log.d("SensorTest", "onSensorChanged called, tiltX = " + tiltX);
 
             Scene scene = Scene.top();
             ((MainScene) scene).onTiltEvent(tiltX);
