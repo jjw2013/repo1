@@ -252,7 +252,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
             case MotionEvent.ACTION_MOVE:
             case MotionEvent.ACTION_UP:
                 float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-                //setTargetX(pts[0]);
+                setTargetX(pts[0]);
                 return true;
 
         }
