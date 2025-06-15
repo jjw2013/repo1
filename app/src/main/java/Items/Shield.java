@@ -16,25 +16,26 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 
-public class Rocket extends Sprite implements Item, ILayerProvider, IBoxCollidable, IRecyclable {
+public class Shield extends Sprite implements Item, ILayerProvider, IBoxCollidable, IRecyclable {
 
     protected RectF collisionRect = new RectF();
 
     public boolean deleteMark = false;
 
-    private static final float PLATFORM_WIDTH = 30f;
-    private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 107 / 71;
+    private static final float PLATFORM_WIDTH = 40f;
+    private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 122 / 122;
 
 
-    public Rocket(){
-        super(R.mipmap.rocket);
+    public Shield(){
+        super(R.mipmap.shield_item);
     }
 
     @Override
     public void applyItemTo(Doodler doodler) {
 
-        if(!doodler.rocketmode && !doodler.propellermode) {
-            doodler.use_item_rocket();
+
+        if(!doodler.shieldmode) {
+            doodler.use_item_shield();
             deleteMark = true;
         }
 
@@ -85,11 +86,11 @@ public class Rocket extends Sprite implements Item, ILayerProvider, IBoxCollidab
         updateCollisionRect();
     }
 
-    public static Rocket get(float x, float y) {
-        return Scene.top().getRecyclable(Rocket.class).init(x, y);
+    public static Shield get(float x, float y) {
+        return Scene.top().getRecyclable(Shield.class).init(x, y);
     }
 
-    public Rocket init(float x, float y) {
+    public Shield init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
         return this;
     }

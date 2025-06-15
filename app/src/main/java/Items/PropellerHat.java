@@ -1,5 +1,6 @@
 package Items;
 
+
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
@@ -16,25 +17,25 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 
-public class Rocket extends Sprite implements Item, ILayerProvider, IBoxCollidable, IRecyclable {
+public class PropellerHat extends Sprite implements Item, ILayerProvider, IBoxCollidable, IRecyclable {
 
     protected RectF collisionRect = new RectF();
 
     public boolean deleteMark = false;
 
     private static final float PLATFORM_WIDTH = 30f;
-    private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 107 / 71;
+    private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 79 / 93;
 
 
-    public Rocket(){
-        super(R.mipmap.rocket);
+    public PropellerHat(){
+        super(R.mipmap.propeller_hat_idle);
     }
 
     @Override
     public void applyItemTo(Doodler doodler) {
 
         if(!doodler.rocketmode && !doodler.propellermode) {
-            doodler.use_item_rocket();
+            doodler.use_item_propeller();
             deleteMark = true;
         }
 
@@ -85,11 +86,11 @@ public class Rocket extends Sprite implements Item, ILayerProvider, IBoxCollidab
         updateCollisionRect();
     }
 
-    public static Rocket get(float x, float y) {
-        return Scene.top().getRecyclable(Rocket.class).init(x, y);
+    public static PropellerHat get(float x, float y) {
+        return Scene.top().getRecyclable(PropellerHat.class).init(x, y);
     }
 
-    public Rocket init(float x, float y) {
+    public PropellerHat init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
         return this;
     }

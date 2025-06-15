@@ -8,6 +8,7 @@ import Platforms.Platform;
 import Platforms.PlatformGenerator;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class MenuScene extends Scene {
 
@@ -39,6 +40,8 @@ public class MenuScene extends Scene {
 
         add(Layer.ui, new playButton());
         add(Layer.ui, new scoreButton());
+        add(Layer.image, new ImagePainter(R.mipmap.logo, (int)Metrics.width/4,(int)Metrics.height/4,
+                500,594,267));
 
 
 

@@ -19,11 +19,16 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
 
     Sprite equip;
+    Sprite equip2;
+    Sprite equip3;
+    Sprite equip4;
+
+    Sprite equip5;
     private static final float EQUIP_PLANE_WIDTH = 30f;
     private static final float EQUIP_PLANE_HEIGHT = EQUIP_PLANE_WIDTH * 125 / 35;
 
 
-    private static final float GRAVITY = 800f;
+    private static final float GRAVITY = 2000f;
     private boolean isFalling= true;
     private boolean stomped = false;
     public boolean invisible = false;
@@ -31,7 +36,14 @@ public class Doodler extends Sprite implements IBoxCollidable {
     public boolean hit =false;
 
     public boolean rocketmode =false;
-    private float rockettimer=5;
+    private float rockettimer=3;
+
+    public boolean shieldmode =false;
+    private float shieldtimer=10;
+
+    public boolean propellermode =false;
+    private float propellertimer=3;
+    private boolean filp_propeller_image =true;
 
     public boolean hult = false;
 
@@ -40,7 +52,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
     protected RectF collisionRect= new RectF();
 
-    private float jumpSpeed = 1000f;
+    private float jumpSpeed = 1200f;
     private static final float PLANE_WIDTH = 120f;
     private static final float PLANE_HEIGHT = PLANE_WIDTH * 210 / 251;
 
@@ -56,8 +68,13 @@ public class Doodler extends Sprite implements IBoxCollidable {
         setPosition(Metrics.width/2,Metrics.height/2,PLANE_WIDTH, PLANE_HEIGHT);
         dy = jumpSpeed;
         score = num;
+        isFalling = false;
 
         equip = new Sprite(R.mipmap.rocket_part);
+        equip2 = new Sprite(R.mipmap.shield);
+        equip3 = new Sprite(R.mipmap.propeller_hat);
+        equip4 = new Sprite(R.mipmap.propeller_hat2);
+        equip5 = new Sprite(R.mipmap.stun_star);
 
     }
 
@@ -68,7 +85,10 @@ public class Doodler extends Sprite implements IBoxCollidable {
         dy = jumpSpeed;
 
         equip = new Sprite(R.mipmap.rocket_part);
-
+        equip2 = new Sprite(R.mipmap.shield);
+        equip3 = new Sprite(R.mipmap.propeller_hat);
+        equip4 = new Sprite(R.mipmap.propeller_hat2);
+        equip5 = new Sprite(R.mipmap.stun_star);
     }
 
     public boolean isFalling(){
@@ -105,6 +125,9 @@ public class Doodler extends Sprite implements IBoxCollidable {
     public void hit_mob(){
         if(rocketmode)
             return;
+        if(propellermode)
+            propellermode=false;
+
         hit=true;
         dy=0;
     }
@@ -122,7 +145,17 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
     public void use_item_rocket() {
         rocketmode = true;
-        rockettimer=5;
+        rockettimer=3;
+    }
+
+    public void use_item_shield() {
+        shieldmode = true;
+        shieldtimer=10;
+    }
+
+    public void use_item_propeller() {
+        propellermode = true;
+        propellertimer=3;
     }
 
 
@@ -140,6 +173,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
         super.update();
         checkFalling();
 
+
         if(rocketmode) {
             dy = jumpSpeed*2;
 
@@ -151,11 +185,35 @@ public class Doodler extends Sprite implements IBoxCollidable {
                 Scene.top().add(EmptyRocketCanister.get(x-48f,y-15f));
             }
         }
+        else if(propellermode){
+            dy = jumpSpeed*0.8f;
 
+            propellertimer -= GameView.frameTime;
+
+            if(propellertimer<0){
+                propellermode= false;
+            }
+        }
         else
             dy -= GRAVITY * GameView.frameTime;
 
-        dx = tiltX* -400f;
+
+
+        if(shieldmode){
+            shieldtimer -= GameView.frameTime;
+
+            if(shieldtimer<0) {
+                shieldmode = false;
+            }
+        }
+
+
+
+
+
+        if(!hit)
+            dx = tiltX* -400f;
+
         if(x<0)
             x= Metrics.width;
         if(x>Metrics.width)
@@ -194,7 +252,7 @@ public class Doodler extends Sprite implements IBoxCollidable {
             case MotionEvent.ACTION_MOVE:
             case MotionEvent.ACTION_UP:
                 float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-                setTargetX(pts[0]);
+                //setTargetX(pts[0]);
                 return true;
 
         }
@@ -218,11 +276,45 @@ public class Doodler extends Sprite implements IBoxCollidable {
 
         if(rocketmode){
             equip.setPosition(x-48f,y-15f,EQUIP_PLANE_WIDTH,EQUIP_PLANE_HEIGHT);
-            equip.setDstRectWithCamera(Camera.getCameraY(y));
+            equip.setDstRectWithCamera(Camera.getCameraY(y-15f));
             equip.draw(canvas);
             equip.revertDstRect();
         }
 
+
+
+        if(propellermode){
+            if(filp_propeller_image) {
+                equip3.setPosition(x, y + 55f, 93, 79);
+                equip3.setDstRectWithCamera(Camera.getCameraY(y + 55f));
+                equip3.draw(canvas);
+                equip3.revertDstRect();
+                filp_propeller_image= false;
+            }
+            else{
+                equip4.setPosition(x, y + 55f, 93, 79);
+                equip4.setDstRectWithCamera(Camera.getCameraY(y + 55f));
+                equip4.draw(canvas);
+                equip4.revertDstRect();
+                filp_propeller_image= true;
+            }
+
+        }
+
+        if(hit){
+            equip5.setPosition(x, y + 55f, 100f, 100f * 100/186);
+            equip5.setDstRectWithCamera(Camera.getCameraY(y + 55f));
+            equip5.draw(canvas);
+            equip5.revertDstRect();
+        }
+
+
+        if(shieldmode){
+            equip2.setPosition(x,y,200f,200f);
+            equip2.setDstRectWithCamera(Camera.getCameraY(y));
+            equip2.draw_with_alpha(canvas);
+            equip2.revertDstRect();
+        }
 
     }
 

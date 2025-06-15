@@ -1,53 +1,41 @@
-package Items;
+package com.example.doodle;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-import com.example.doodle.Camera;
-import com.example.doodle.Doodler;
-import com.example.doodle.MainScene;
-import com.example.doodle.R;
-
-import Platforms.NormalPlatform;
-import Platforms.Platform;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.ILayerProvider;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
-public class Rocket extends Sprite implements Item, ILayerProvider, IBoxCollidable, IRecyclable {
+
+public class Bullet extends Sprite implements ILayerProvider, IBoxCollidable, IRecyclable {
 
     protected RectF collisionRect = new RectF();
 
     public boolean deleteMark = false;
 
     private static final float PLATFORM_WIDTH = 30f;
-    private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 107 / 71;
+    private static final float PLATFORM_HEIGHT = PLATFORM_WIDTH * 41 / 41;
 
 
-    public Rocket(){
-        super(R.mipmap.rocket);
+    private float speed = 1000f;
+    private float dir = 0;
+    public boolean remove_this = false;
+
+    private float timer =2;
+
+    public Bullet(float dir){
+        super(R.mipmap.shell);
     }
 
-    @Override
-    public void applyItemTo(Doodler doodler) {
-
-        if(!doodler.rocketmode && !doodler.propellermode) {
-            doodler.use_item_rocket();
-            deleteMark = true;
-        }
-
-    }
-
-    @Override
-    public boolean isMarked() {
-        return deleteMark;
-    }
 
     @Override
     public MainScene.Layer getLayer() {
-        return MainScene.Layer.item;
+        return MainScene.Layer.bullet;
     }
 
     @Override
@@ -57,14 +45,26 @@ public class Rocket extends Sprite implements Item, ILayerProvider, IBoxCollidab
 
     @Override
     public void update() {
+
+
+        dx = (float)Math.cos(dir) * speed *GameView.frameTime;
+        dy = (float)Math.sin(dir) * speed *GameView.frameTime;
+        timer -= GameView.frameTime;
+
         super.update();
 
 
+        if(timer <0 || remove_this)
+            Scene.top().remove(this);
+
     }
 
-    public void deleteThis(){
-        deleteMark=false;
-        Scene.top().remove(this);
+    private boolean isOutOfCameraRange(){
+
+        if (this.y < Camera.worldY - Metrics.height/2 ) return true;
+
+        return false;
+
     }
 
 
@@ -85,12 +85,17 @@ public class Rocket extends Sprite implements Item, ILayerProvider, IBoxCollidab
         updateCollisionRect();
     }
 
-    public static Rocket get(float x, float y) {
-        return Scene.top().getRecyclable(Rocket.class).init(x, y);
+    public static Bullet get(float x, float y) {
+        return Scene.top().getRecyclable(Bullet.class).init(x, y);
     }
 
-    public Rocket init(float x, float y) {
+    public Bullet init(float x, float y) {
         setPosition(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        remove_this=false;
+        timer=2;
         return this;
     }
+
+
+
 }

@@ -63,6 +63,11 @@ public class CollisionChecker implements IGameObject {
             Monster mob = (Monster) mobs.get(e);
 
             if(CollisionHelper.collides(doodler, (IBoxCollidable) mob)){
+                if(doodler.shieldmode){
+                    mob.remove_this= true;
+                    continue;
+                }
+
                 if(!doodler.hit && !doodler.isFalling())
                     doodler.hit_mob();
 

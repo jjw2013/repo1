@@ -82,6 +82,14 @@ public class Sprite implements IGameObject {
 
     }
 
+    public void draw_with_alpha(Canvas canvas) {
+
+        Paint paint = new Paint();
+        paint.setAlpha(128);
+        canvas.drawBitmap(bitmap, srcRect, dstRect, paint);
+
+    }
+
 
     protected static Paint bboxPaint;
 }
